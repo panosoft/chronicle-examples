@@ -1,4 +1,4 @@
-# Flat Data Report
+# SQL Data Source Report
 
 This Report Module has a data function that fetches flat data from a SQL server and uses [Treeize](https://github.com/kwhitley/treeize) to give that data a hierarchical structure.
 

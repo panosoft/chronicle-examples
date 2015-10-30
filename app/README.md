@@ -1,4 +1,4 @@
-# Example App
+# Simple Reporting App
 
 This is an example application composed of a client and server that uses Chronicle and PrinceXML to generate dynamic reports.
 

@@ -1,4 +1,4 @@
-# Bundle Server
+# Report Bundle Server
 
 This example is composed of a static server that serves up report bundles and a test script that runs bundles via a url.
 

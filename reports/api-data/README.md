@@ -1,4 +1,4 @@
-# Dynamic Report
+# API Data Source Report
 
 This Report Module exports a Definition function and uses a dynamic set of data that is refreshed each time the Report is run.
 

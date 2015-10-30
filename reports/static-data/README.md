@@ -1,4 +1,4 @@
-# Static Report
+# Static Data Source Report
 
 This Report Module exports a basic Definition object that provides a static set of data to be used each time the Report is run.
 
