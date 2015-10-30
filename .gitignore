@@ -1,0 +1,12 @@
+node_modules
+.idea
+bundle.js
+*.log
+
+**/test/test.pdf
+**/test/test.html
+!**/test/fixtures/**
+!**/test/node_modules
+
+!reports/**/test.pdf
+!app/**/bundle.js
