@@ -1,11 +1,12 @@
 var co = require('co');
-var Definition = require('@panosoft/report-definition');
+var common = require('@panosoft/report-common');
+var Handlebars = require('handlebars');
 var inline = require('inline-html');
 var path = require('path');
 var R = require('ramda');
 
-var context = function () {
-	return {
+var getContext = function (parameters) {
+	var context = {
 		title: "Kitchen Sink",
 		string: 'A string',
 		number: 4321.1234,
@@ -29,27 +30,29 @@ var context = function () {
 			}
 		]
 	};
+	return context;
 };
 
-var definition = co.wrap(function * () {
-	return yield Definition.create({
-		context,
-		template: yield inline.file(path.resolve(__dirname, './assets/template.html')),
-		helpers: {
-			embedded: function () { return 'Embedded Helper'; },
-			imported: require('./assets/helper.js')
-		},
-		partials: {
-			embedded: 'Embedded Partial',
-			imported: yield inline.file(path.resolve(__dirname, './assets/partial.html'))
-		},
-		charts: {
-			chart: function (data) {
-				var columns = R.map((group) => [group.name, group.items.length], data.groups);
-				return { data: { columns: columns, type: 'donut'}};
-			}
-		}
+var render = co.wrap(function * (context) {
+	const components = yield common.getComponents();
+	const helpers = R.merge(components.helpers, {
+		embedded: function () { return 'Embedded Helper'; },
+		imported: require('./assets/helper.js')
 	});
+	const partials = R.merge(components.partials, {
+		embedded: 'Embedded Partial',
+		imported: yield inline.file(path.resolve(__dirname, './assets/partial.html'))
+	});
+	const source = yield inline.file(path.resolve(__dirname, './assets/template.html'));
+	const template = Handlebars.compile(source);
+	var html = template(context, {helpers, partials});
+	return html;
 });
 
-module.exports = definition;
+var report = co.wrap(function * (parameters) {
+	const context = getContext(parameters);
+	const html = yield render(context);
+	return html;
+});
+
+module.exports = report;

@@ -26,9 +26,7 @@ co(function * () {
 
 		// Run report
 		var press = chronicle.Press.create();
-		yield press.initialize();
 		var html = yield press.run(reportUrl, parameters.report);
-		press.shutdown();
 
 		// Render HTML as PDF
 		var pdf = yield prince(html, parameters.renderer);
@@ -39,7 +37,5 @@ co(function * () {
 
 		open(path.join(__dirname, './test.pdf'));
 	}
-	catch (error) {
-		console.trace(error.stack);
-	}
+	catch (error) { console.trace(error.stack); }
 });

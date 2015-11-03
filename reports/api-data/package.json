@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node --harmony_arrow_functions test/index.js"
+    "test": "node test/index.js"
   },
   "author": "",
   "license": "MIT",
@@ -17,7 +17,7 @@
     ]
   },
   "devDependencies": {
-    "@panosoft/chronicle": "^0.8.0",
+    "@panosoft/chronicle": "^0.9.0",
     "open": "0.0.5",
     "prince-promise": "^0.2.1"
   },
@@ -25,6 +25,7 @@
     "bootstrap": "^3.3.5",
     "co": "^4.6.0",
     "got": "^4.2.0",
+    "handlebars": "^4.0.4",
     "html-inlinify": "^0.2.0",
     "inline-html": "^0.2.0",
     "moment": "^2.10.6",

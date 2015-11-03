@@ -11,7 +11,6 @@ co(function * () {
 	var press;
 	try {
 		press = chronicle.Press.create();
-		yield press.initialize();
 
 		// Run and render report
 		var html = yield press.run(report);
@@ -25,8 +24,5 @@ co(function * () {
 	}
 	catch (error) {
 		console.error(error.stack);
-	}
-	finally {
-		press.shutdown();
 	}
 });

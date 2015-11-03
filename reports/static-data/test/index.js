@@ -4,17 +4,14 @@ var fs = require('fs');
 var open = require('open');
 var path = require('path');
 var prince = require('prince-promise');
-
 var report = require('../lib');
 
 co(function * () {
 	try {
-
 		var press = chronicle.Press.create();
-		yield press.initialize();
 
 		// Run and render report
-		var html = yield press.run(report);
+		var html = yield press.run(report, {date: new Date()});
 		var pdf = yield prince(html);
 
 		// Save output
@@ -23,10 +20,5 @@ co(function * () {
 
 		open(path.resolve(__dirname,'./test.pdf'));
 	}
-	catch (error) {
-		console.error(error.stack);
-	}
-	finally {
-		press.shutdown();
-	}
+	catch (error) { console.error(error.stack); }
 });

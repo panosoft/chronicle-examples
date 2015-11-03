@@ -1,5 +1,6 @@
 const capitalize = require('underscore.string/capitalize');
 const co = require('co');
+const Handlebars = require('handlebars');
 const inline = require('inline-html');
 const moment = require('moment');
 const path = require('path');
@@ -13,8 +14,7 @@ const execute = (connection, query) => new Promise((resolve, reject) =>
   connection.query(query, (error, results) => error ? reject(error) : resolve(results))
 );
 
-const context = co.wrap(function * () {
-
+const getContext = co.wrap(function * (parameters) {
   // Connect to SQL server
   const connection = sql.createConnection({
     host: 'ensembldb.ensembl.org',
@@ -23,7 +23,6 @@ const context = co.wrap(function * () {
     database: 'homo_sapiens_core_82_38'
   });
   yield connect(connection);
-
   // Query database
   const query = `
     SELECT
@@ -35,31 +34,37 @@ const context = co.wrap(function * () {
   `;
   const results = yield execute(connection, query);
   connection.end();
-
-  // unflatten
+  // Process data: unflatten
   const tree = new Treeize();
   tree.grow(results);
   const biotypes = tree.getData();
-
-  return {
-    title: 'Genes by Biotype',
-    biotypes
-  };
+  // Assemble context
+  const context = { title: 'Genes by Biotype', biotypes };
+  return context;
 });
 
-const definition = co.wrap(function * () {
-  return {
-    context,
-    helpers: {
-      capitalize: (value) => capitalize(value),
-  		formatDate: (date, type) => moment(date).format(type)
-  	},
-    partials: {
-  		page: '<span style="content: counter(page)"></span>',
-  		pages: '<span style="content: counter(pages)"></span>'
-  	},
-    template: yield inline.file(path.resolve(__dirname, './template.hbs'))
+const render = co.wrap(function * (context) {
+  // Create template
+  const source = yield inline.file(path.resolve(__dirname, './template.hbs'));
+  const template = Handlebars.compile(source);
+  // Define helpers and partials
+  const helpers = {
+    capitalize: (value) => capitalize(value),
+    formatDate: (date, type) => moment(date).format(type)
   };
+  const partials = {
+    page: '<span style="content: counter(page)"></span>',
+    pages: '<span style="content: counter(pages)"></span>'
+  };
+  // Generate HTML
+  const html = template(context, {helpers, partials});
+  return html;
 });
 
-module.exports = definition;
+const report = co.wrap(function * (parameters) {
+  const context = yield getContext(parameters);
+  const html = yield render(context);
+  return html;
+});
+
+module.exports = report;

@@ -1,24 +1,25 @@
-var definition = {
-	context: {
-		property: 'value'
-	},
-	helpers: {
-		help: function (value) {return value;}
-	},
-	partials: {
-		part: 'partial template'
-	},
-	template: `
-		<!DOCTYPE html>
-		<html>
-		<body>
-			<h1>Welcome to Chronicle</h1>
-			<div>Data: property: {{property}}</div>
-			<div>Helpers: help: {{help "helped"}}</div>
-			<div>Partials: part: {{>part}}</div>
-		</body>
-		</html>
-	`
+var Handlebars = require('handlebars');
+
+var getContext = (parameters) => ({ date: parameters.date });
+
+var helpers = { identity: (x) => x };
+var partials = { welcome: '<h1>Welcome to Chronicle</h1>' };
+var source = `
+	<!DOCTYPE html>
+	<html>
+	<body>
+		{{>welcome}}
+		{{identity date}}
+	</body>
+	</html>
+`;
+var template = Handlebars.compile(source);
+var render = (context) => template(context, {helpers, partials});
+
+var report = (parameters) => {
+	var context = getContext(parameters);
+	var html = render(context);
+	return html;
 };
 
-module.exports = definition;
+module.exports = report;
