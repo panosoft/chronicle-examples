@@ -25,8 +25,7 @@ co(function * () {
 			.replyWithFile(200, filePath);
 
 		// Run report
-		var press = chronicle.Press.create();
-		var html = yield press.run(reportUrl, parameters.report);
+		var html = yield chronicle.run(reportUrl, parameters.report);
 
 		// Render HTML as PDF
 		var pdf = yield prince(html, parameters.renderer);

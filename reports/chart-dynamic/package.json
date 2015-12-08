@@ -2,7 +2,12 @@
   "name": "chart-dynamic",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "browserify": {
+    "transform": [
+      "html-inlinify"
+    ]
+  },
   "directories": {
     "test": "test"
   },
@@ -10,7 +15,7 @@
     "test": "node test/index.js"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "co": "^4.6.0",
     "handlebars": "^4.0.4",
@@ -19,7 +24,7 @@
     "ramda": "^0.18.0"
   },
   "devDependencies": {
-    "@panosoft/chronicle": "^0.9.1",
+    "@panosoft/chronicle": "^0.10.0",
     "html-inlinify": "^0.2.0",
     "open": "0.0.5",
     "prince-promise": "^0.2.2"

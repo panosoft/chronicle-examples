@@ -7,7 +7,7 @@
     "start": "node_modules/.bin/watchify index.js -o bundle.js -v"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.5",
     "co": "^4.6.0",

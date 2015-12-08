@@ -7,16 +7,16 @@
     "test": "test"
   },
   "scripts": {
-    "start": "node --harmony_arrow_functions lib/index.js",
-    "test": "node --harmony_arrow_functions test/index.js"
+    "start": "node lib/index.js",
+    "test": "node test/index.js"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.13.3"
   },
   "devDependencies": {
-    "@panosoft/chronicle": "^0.6.0",
+    "@panosoft/chronicle": "^0.10.0",
     "co": "^4.6.0",
     "open": "0.0.5",
     "prince-promise": "^0.2.2"

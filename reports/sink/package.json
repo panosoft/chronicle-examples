@@ -7,14 +7,14 @@
     "test": "chronicle bundle && node test/index.js"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "browserify": {
     "transform": [
       "html-inlinify"
     ]
   },
   "devDependencies": {
-    "@panosoft/chronicle": "^0.9.0",
+    "@panosoft/chronicle": "^0.10.0",
     "nock": "^2.7.0",
     "open": "0.0.5",
     "prince-promise": "^0.2.0"

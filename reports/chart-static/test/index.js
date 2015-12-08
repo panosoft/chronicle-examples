@@ -8,9 +8,7 @@ var report = require('../lib');
 
 co(function * () {
 	try {
-		var press = chronicle.Press.create();
-
-		var html = yield press.run(report, {date: new Date()});
+		var html = yield chronicle.run(report, {date: new Date()});
 		fs.writeFileSync(path.resolve(__dirname,'./test.html'), html);
 
 		var pdf = yield prince(html);

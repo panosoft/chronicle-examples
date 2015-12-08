@@ -1,5 +1,5 @@
 {
-  "name": "chart",
+  "name": "chart-static",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
@@ -10,7 +10,7 @@
     "test": "node test/index.js"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "browserify": {
     "transform": [
       "html-inlinify"
@@ -24,7 +24,7 @@
     "ramda": "^0.18.0"
   },
   "devDependencies": {
-    "@panosoft/chronicle": "^0.9.1",
+    "@panosoft/chronicle": "^0.10.0",
     "html-inlinify": "^0.2.0",
     "open": "0.0.5",
     "prince-promise": "^0.2.2"

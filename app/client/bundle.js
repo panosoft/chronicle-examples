@@ -70,8 +70,8 @@ button.addEventListener('click', co.wrap(function * () {
         },
         renderer: {}
     };
-    const report = yield runReport('dynamic/lib/index.js', parameters);
-    saveAs(report, 'dynamic.pdf');
+    const report = yield runReport('data-json/lib/index.js', parameters);
+    saveAs(report, 'data-json.pdf');
   }
   catch (error) {
     console.error(error);

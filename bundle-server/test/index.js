@@ -5,32 +5,21 @@ const open = require('open');
 const path = require('path');
 const prince = require('prince-promise');
 
-const reportUrl = 'http://localhost:8888/api-data/bundle.js';
+const reportUrl = 'http://localhost:8888/data-json/bundle.js';
 const parameters = {
 	sort: 'stars',
 	results: 30
 };
 
 co(function * () {
-  var press;
   try {
-    press = chronicle.Press.create();
-    yield press.initialize();
-
-    // Run and render report
-    var html = yield press.run(reportUrl, parameters);
-    var pdf = yield prince(html);
-
-    // Save output
+    const html = yield chronicle.run(reportUrl, parameters);
     fs.writeFileSync(path.resolve(__dirname,'./test.html'), html);
+
+    const pdf = yield prince(html);
     fs.writeFileSync(path.resolve(__dirname,'./test.pdf'), pdf);
 
     open(path.resolve(__dirname,'./test.pdf'));
   }
-  catch (error) {
-    console.error(error.stack);
-  }
-  finally {
-    press.shutdown();
-  }
+  catch (error) { console.error(error.stack); }
 });

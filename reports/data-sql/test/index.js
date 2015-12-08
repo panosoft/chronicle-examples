@@ -8,21 +8,14 @@ var prince = require('prince-promise');
 var report = require('../lib');
 
 co(function * () {
-	var press;
 	try {
-		press = chronicle.Press.create();
-
-		// Run and render report
-		var html = yield press.run(report);
-		var pdf = yield prince(html);
-
-		// Save output
+		var html = yield chronicle.run(report);
 		fs.writeFileSync(path.resolve(__dirname,'./test.html'), html);
+
+		var pdf = yield prince(html);
 		fs.writeFileSync(path.resolve(__dirname,'./test.pdf'), pdf);
 
 		open(path.resolve(__dirname,'./test.pdf'));
 	}
-	catch (error) {
-		console.error(error.stack);
-	}
+	catch (error) { console.error(error.stack); }
 });
