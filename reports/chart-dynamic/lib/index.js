@@ -5,7 +5,7 @@ const inline = require('inline-html');
 const R = require('ramda');
 const path = require('path');
 
-const getContext = () => ({
+const fetch = () => ({
 	groups: [
 		{
 			name: 'Group 1',
@@ -56,11 +56,8 @@ const render = co.wrap(function * (context) {
 });
 
 const report = co.wrap(function * () {
-  try {
-    const context = getContext();
-    return yield render(context);
-  }
-  catch (error) { console.error(error); }
+  const context = fetch();
+  return yield render(context);
 });
 
 module.exports = report;

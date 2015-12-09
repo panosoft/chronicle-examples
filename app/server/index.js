@@ -6,7 +6,7 @@ const path = require('path');
 const prince = require('prince-promise');
 
 // Configure express routes
-var app = express();
+const app = express();
 /**
  * / route
  *

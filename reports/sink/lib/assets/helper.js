@@ -1,3 +1,1 @@
-module.exports = function () {
-	return 'Imported Helper';
-};
+module.exports = () => 'Imported Helper';

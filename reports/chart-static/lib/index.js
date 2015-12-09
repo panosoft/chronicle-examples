@@ -6,7 +6,6 @@ const R = require('ramda');
 const path = require('path');
 
 const render = co.wrap(function * () {
-
   const options = {
     width: 400,
     height: 200,
@@ -42,10 +41,7 @@ const render = co.wrap(function * () {
 });
 
 const report = co.wrap(function * () {
-  try {
-    return yield render();
-  }
-  catch (error) {console.error(error);}
+  return yield render();
 });
 
 module.exports = report;

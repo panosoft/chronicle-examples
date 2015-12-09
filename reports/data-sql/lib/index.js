@@ -14,8 +14,7 @@ const execute = (connection, query) => new Promise((resolve, reject) =>
   connection.query(query, (error, results) => error ? reject(error) : resolve(results))
 );
 
-const getContext = co.wrap(function * (parameters) {
-  // Connect to SQL server
+const fetch = co.wrap(function * () {
   const connection = sql.createConnection({
     host: 'ensembldb.ensembl.org',
     port: '3306',
@@ -23,7 +22,6 @@ const getContext = co.wrap(function * (parameters) {
     database: 'homo_sapiens_core_82_38'
   });
   yield connect(connection);
-  // Query database
   const query = `
     SELECT
       gene.biotype AS "biotypes:biotype",
@@ -34,14 +32,21 @@ const getContext = co.wrap(function * (parameters) {
   `;
   const results = yield execute(connection, query);
   connection.end();
-  // Process data: unflatten
+  return results;
+});
+
+const process = (data) => {
+  // Unflatten data
   const tree = new Treeize();
-  tree.grow(results);
+  tree.grow(data);
   const biotypes = tree.getData();
   // Assemble context
-  const context = { title: 'Genes by Biotype', biotypes };
+  const context = {
+    title: 'Genes by Biotype',
+    biotypes
+  };
   return context;
-});
+};
 
 const render = co.wrap(function * (context) {
   // Create template
@@ -61,8 +66,9 @@ const render = co.wrap(function * (context) {
   return html;
 });
 
-const report = co.wrap(function * (parameters) {
-  const context = yield getContext(parameters);
+const report = co.wrap(function * () {
+  const data = yield fetch();
+  const context = process(data);
   const html = yield render(context);
   return html;
 });

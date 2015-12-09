@@ -1,24 +1,28 @@
-var Handlebars = require('handlebars');
+const Handlebars = require('handlebars');
 
-var getContext = (parameters) => ({ date: parameters.date });
+const fetch = (parameters) => ({
+	date: parameters.date
+});
 
-var helpers = { identity: (x) => x };
-var partials = { welcome: '<h1>Welcome to Chronicle</h1>' };
-var source = `
-	<!DOCTYPE html>
-	<html>
-	<body>
-		{{>welcome}}
-		{{identity date}}
-	</body>
-	</html>
-`;
-var template = Handlebars.compile(source);
-var render = (context) => template(context, {helpers, partials});
+const render = (context) => {
+	const helpers = { identity: (x) => x };
+	const partials = { welcome: '<h1>Welcome to Chronicle</h1>' };
+	const source = `
+		<!DOCTYPE html>
+		<html>
+		<body>
+			{{>welcome}}
+			{{identity date}}
+		</body>
+		</html>
+	`;
+	const template = Handlebars.compile(source);
+	return template(context, { helpers, partials });
+};
 
-var report = (parameters) => {
-	var context = getContext(parameters);
-	var html = render(context);
+const report = (parameters) => {
+	const context = fetch(parameters);
+	const html = render(context);
 	return html;
 };
 

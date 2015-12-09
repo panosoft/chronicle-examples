@@ -29,6 +29,7 @@
     "html-inlinify": "^0.2.0",
     "inline-html": "^0.2.0",
     "moment": "^2.10.6",
-    "octicons": "^2.4.1"
+    "octicons": "^2.4.1",
+    "ramda": "^0.18.0"
   }
 }
