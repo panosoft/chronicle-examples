@@ -7,6 +7,8 @@ const path = require('path');
 const R = require('ramda');
 const url = require('url');
 
+const mapIndexed = R.addIndex(R.map);
+
 // API helper
 const searchRepositories = (query) => {
 	var api = url.parse(`https://api.github.com/search/repositories`);
@@ -26,7 +28,7 @@ const fetch = co.wrap(function * (parameters) {
 });
 
 const process = (data) => {
-	const repos = R.map((repo, index) => {
+	const repos = mapIndexed((repo, index) => {
 		repo.rank = index + 1;
 		return repo;
 	}, data);
