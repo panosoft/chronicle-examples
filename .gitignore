@@ -9,4 +9,5 @@ bundle.js
 !**/test/node_modules
 
 !reports/**/test.pdf
+!reports/**/test.csv
 !app/**/bundle.js

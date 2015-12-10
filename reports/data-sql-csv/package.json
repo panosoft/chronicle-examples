@@ -1,0 +1,29 @@
+{
+  "name": "data-sql-csv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@panosoft/chronicle": "^0.10.0",
+    "open": "0.0.5"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "co": "^4.6.0",
+    "json2csv": "^3.0.1",
+    "mysql": "^2.9.0",
+    "pify": "^2.3.0",
+    "ramda": "^0.18.0",
+    "treeize": "^2.0.2",
+    "underscore.string": "^3.2.2",
+    "untreeize": "0.0.3"
+  }
+}
